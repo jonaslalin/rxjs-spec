@@ -25,7 +25,7 @@ describe('subscription', () => {
     jest.clearAllTimers();
   });
 
-  test('should dispose of resources from unsubscribe()', () => {
+  test('unsubscribe() should dispose of resources', () => {
     const result = [];
     const subscription = source.subscribe(next => result.push(next));
     setTimeout(() => subscription.unsubscribe(), 5000);
@@ -41,7 +41,7 @@ describe('subscription', () => {
     expect(result.length).toBe(5);
   });
 
-  test('should dispose of resources from unsubscribe.next()', () => {
+  test('takeUntil(unsubscribe) should dispose of resources', () => {
     const unsubscribe = new Subject();
     const result = [];
     const subscription = source
