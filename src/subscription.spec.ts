@@ -30,15 +30,15 @@ describe('subscription', () => {
     const subscription = source.subscribe(next => result.push(next));
     setTimeout(() => subscription.unsubscribe(), 5000);
 
-    expect(teardownSpy).not.toHaveBeenCalled();
-    expect(subscription.closed).toBe(false);
     expect(result.length).toBe(0);
+    expect(subscription.closed).toBe(false);
+    expect(teardownSpy).not.toHaveBeenCalled();
 
     jest.advanceTimersByTime(5000);
 
-    expect(teardownSpy).toHaveBeenCalledWith(sourceIntervalId);
-    expect(subscription.closed).toBe(true);
     expect(result.length).toBe(5);
+    expect(subscription.closed).toBe(true);
+    expect(teardownSpy).toHaveBeenCalledWith(sourceIntervalId);
   });
 
   test('takeUntil(unsubscribe) should dispose of resources', () => {
@@ -49,14 +49,16 @@ describe('subscription', () => {
       .subscribe(next => result.push(next));
     setTimeout(() => unsubscribe.next(), 5000);
 
-    expect(teardownSpy).not.toHaveBeenCalled();
-    expect(subscription.closed).toBe(false);
     expect(result.length).toBe(0);
+    expect(subscription.closed).toBe(false);
+    expect(teardownSpy).not.toHaveBeenCalled();
+    expect(unsubscribe.observers.length).toBe(1);
 
     jest.advanceTimersByTime(5000);
 
-    expect(teardownSpy).toHaveBeenCalledWith(sourceIntervalId);
-    expect(subscription.closed).toBe(true);
     expect(result.length).toBe(5);
+    expect(subscription.closed).toBe(true);
+    expect(teardownSpy).toHaveBeenCalledWith(sourceIntervalId);
+    expect(unsubscribe.observers.length).toBe(0);
   });
 });
