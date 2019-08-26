@@ -2,7 +2,7 @@
   "name": "rxjs-spec",
   "version": "0.0.0",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "test:watch": "jest --watch",
     "lint": "tslint -p tsconfig.json"
   },
