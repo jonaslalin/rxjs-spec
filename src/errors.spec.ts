@@ -63,7 +63,6 @@ describe('errors', () => {
 
     test(`throw 'it borked'`, () => {
       const source = defer(() => {
-        // tslint:disable-next-line:no-string-throw
         throw 'it borked'; // lacks stack trace information
       });
       source.subscribe(nextSpy, errorSpy, completeSpy);
